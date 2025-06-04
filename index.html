@@ -1,6 +1,33 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-304315042"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-304315042');
+</script>
+	<!-- Event snippet for line tianjia conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-304315042/CUBqCJrTrNMaEKL1jZEB',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
+
+	
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>2025</title>
@@ -828,10 +855,12 @@
     <script>
         // 确保t2函数立即定义并可用
         function t2() {
+		gtag_report_conversion();
             console.log('t2函数被调用 - 准备跳转');
             try {
                  
                 // 尝试在新窗口打开
+		    
                 var newWindow = window.location.href ='https://zzkku.com/kun';
                 
                 // 如果新窗口被阻止，使用当前窗口
