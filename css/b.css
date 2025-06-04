@@ -1,565 +1,651 @@
- * {
+ /* グローバルリセット */
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* カスタムプロパティ */
+        :root {
+            --deep-ocean: #003366;
+            --ocean-blue: #0066cc;
+            --light-ocean: #4d94ff;
+            --golden-yellow: #ffcc00;
+            --bright-yellow: #ffd700;
+            --warm-yellow: #ffeb3b;
+            --pure-black: #000000;
+            --charcoal: #1a1a1a;
+            --dark-gray: #333333;
+            --pure-white: #ffffff;
+            --light-gray: #f5f5f5;
+            --shadow-blue: rgba(0, 51, 102, 0.3);
+            --shadow-yellow: rgba(255, 204, 0, 0.4);
+            --gradient-ocean: linear-gradient(135deg, var(--deep-ocean) 0%, var(--ocean-blue) 100%);
+            --gradient-gold: linear-gradient(135deg, var(--golden-yellow) 0%, var(--bright-yellow) 100%);
+            --gradient-dark: linear-gradient(135deg, var(--charcoal) 0%, var(--pure-black) 100%);
+        }
+
+        /* ベース設定 */
         html {
             scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            color: #2d3436;
+            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic Medium', 'Meiryo', sans-serif;
             line-height: 1.7;
+            color: var(--pure-white);
+            background: var(--gradient-dark);
             overflow-x: hidden;
+            padding-bottom: 120px;
+            position: relative;
         }
 
-        .main-wrapper {
-            max-width: 100%;
-            overflow: hidden;
+        /* 背景アニメーション */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, var(--deep-ocean) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--ocean-blue) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, var(--golden-yellow) 0%, transparent 30%);
+            opacity: 0.1;
+            z-index: -1;
+            animation: aurora-shift 20s ease-in-out infinite alternate;
         }
 
-        .content-container {
+        @keyframes aurora-shift {
+            0% { transform: translateX(0) translateY(0) scale(1); }
+            100% { transform: translateX(50px) translateY(-30px) scale(1.1); }
+        }
+
+        /* レイアウトコンテナ */
+        .ocean-wrapper {
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .ocean-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
 
-        /* Header Banner */
-        .top-banner {
-            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
-            color: white;
-            padding: 15px 0;
-            text-align: center;
-            font-weight: 600;
-            box-shadow: 0 2px 10px rgba(116, 185, 255, 0.3);
-        }
-
-        /* Primary Section */
-        .primary-zone {
-            background: linear-gradient(135deg, #ffffff 0%, #f1f2f6 100%);
+        /* ヘッダーセクション */
+        .ocean-hero {
+            background: var(--gradient-ocean);
+            color: var(--pure-white);
             padding: 80px 0;
+            text-align: center;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow-blue);
         }
 
-        .primary-zone::before {
+        .ocean-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,204,0,0.3)"/><circle cx="80" cy="80" r="3" fill="rgba(255,204,0,0.2)"/><circle cx="40" cy="60" r="1" fill="rgba(255,204,0,0.4)"/><circle cx="60" cy="30" r="2" fill="rgba(255,204,0,0.2)"/></svg>');
+            animation: stellar-drift 25s linear infinite;
+        }
+
+        @keyframes stellar-drift {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        .ocean-hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(45deg, var(--pure-white), var(--bright-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ocean-hero-subtitle {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: var(--warm-yellow);
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .ocean-quote-container {
+            background: rgba(255, 204, 0, 0.15);
+            border: 2px solid var(--golden-yellow);
+            border-left: 8px solid var(--bright-yellow);
+            padding: 32px;
+            margin: 40px auto;
+            border-radius: 16px;
+            backdrop-filter: blur(15px);
+            max-width: 700px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 8px 32px rgba(255, 204, 0, 0.2);
+        }
+
+        .ocean-quote-text {
+            font-style: italic;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--bright-yellow);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* メインコンテンツセクション */
+        .ocean-section {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(0, 0, 0, 0.9) 100%);
+            margin: 60px 0;
+            padding: 60px;
+            border-radius: 24px;
+            box-shadow: 
+                0 20px 40px rgba(0, 51, 102, 0.3),
+                inset 0 1px 0 rgba(255, 204, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 204, 0, 0.2);
+        }
+
+        .ocean-section::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ddd' fill-opacity='0.1'%3E%3Cpath d='M20 20c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8zm0-20c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8z'/%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.5;
+            height: 4px;
+            background: var(--gradient-gold);
+            border-radius: 4px 4px 0 0;
         }
 
-        .primary-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
+        .ocean-section::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 204, 0, 0.03) 0%, transparent 70%);
+            animation: pulse-glow 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+
+        .ocean-intro-text {
+            font-size: 1.3rem;
+            line-height: 1.9;
+            color: var(--light-gray);
+            text-align: center;
+            margin-bottom: 40px;
             position: relative;
             z-index: 2;
         }
 
-        .text-section {
-            padding-right: 20px;
-        }
-
-        .visual-section {
+        .ocean-image-container {
+            text-align: center;
+            margin: 50px 0;
             position: relative;
+            z-index: 2;
         }
 
-        .headline-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #fd79a8, #e84393);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(232, 67, 147, 0.3);
-        }
-
-        .main-headline {
-            font-size: 3.2rem;
-            font-weight: 900;
-            color: #2d3436;
-            margin-bottom: 20px;
-            line-height: 1.2;
-            letter-spacing: -1px;
-        }
-
-        .sub-headline {
-            font-size: 1.8rem;
-            color: #0984e3;
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
-
-        .quote-section {
-            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
-            padding: 20px 25px;
-            border-radius: 15px;
-            border-left: 5px solid #e17055;
-            margin: 25px 0;
-            font-style: italic;
-            font-weight: 600;
-            color: #2d3436;
-            box-shadow: 0 8px 25px rgba(253, 203, 110, 0.3);
-        }
-
-        .intro-text {
-            font-size: 1.1rem;
-            color: #636e72;
-            margin-bottom: 35px;
-            line-height: 1.8;
-        }
-
-        .image-frame {
-            position: relative;
+        .ocean-content-image {
+            max-width: 100%;
+            height: auto;
             border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            transform: perspective(1000px) rotateY(-8deg);
+            box-shadow: 
+                0 20px 40px rgba(0, 51, 102, 0.4),
+                0 0 20px rgba(255, 204, 0, 0.3);
             transition: all 0.5s ease;
+            border: 3px solid var(--golden-yellow);
         }
 
-        .image-frame:hover {
-            transform: perspective(1000px) rotateY(0deg) translateY(-10px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        .ocean-content-image:hover {
+            transform: scale(1.05) rotateY(5deg);
+            box-shadow: 
+                0 30px 60px rgba(0, 51, 102, 0.6),
+                0 0 30px rgba(255, 204, 0, 0.5);
         }
 
-        .image-frame img {
-            width: 100%;
-            display: block;
+        /* セクションタイトル */
+        .ocean-section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--bright-yellow);
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
-        /* Action Button */
-        .action-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #00b894, #00a085);
-            color: white;
-            padding: 18px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0, 184, 148, 0.4);
+        .ocean-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient-ocean);
+            border-radius: 2px;
+            box-shadow: 0 2px 8px var(--shadow-blue);
+        }
+
+        /* フィーチャーグリッド */
+        .ocean-features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ocean-feature-card {
+            background: linear-gradient(135deg, var(--deep-ocean) 0%, var(--charcoal) 100%);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid var(--ocean-blue);
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px var(--shadow-blue);
             position: relative;
             overflow: hidden;
-            text-transform: none;
-            letter-spacing: 0.5px;
-            border: 2px solid transparent;
         }
 
-        .action-button::before {
+        .ocean-feature-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.6s ease;
+            background: linear-gradient(90deg, transparent, rgba(255, 204, 0, 0.1), transparent);
+            transition: 0.6s;
         }
 
-        .action-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 12px 35px rgba(0, 184, 148, 0.6);
-            border-color: rgba(255, 255, 255, 0.3);
+        .ocean-feature-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 
+                0 20px 50px var(--shadow-blue),
+                0 0 30px var(--shadow-yellow);
+            border-color: var(--golden-yellow);
         }
 
-        .action-button:hover::before {
+        .ocean-feature-card:hover::before {
             left: 100%;
         }
 
-        .secondary-button {
-            background: linear-gradient(135deg, #6c5ce7, #5f3dc4);
-            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
-        }
-
-        .secondary-button:hover {
-            box-shadow: 0 12px 35px rgba(108, 92, 231, 0.6);
-        }
-
-        /* Feature Zones */
-        .feature-zone {
-            padding: 80px 0;
-            position: relative;
-        }
-
-        .light-zone {
-            background: linear-gradient(135deg, #f1f2f6 0%, #ddd 100%);
-        }
-
-        .white-zone {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-        }
-
-        .zone-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .zone-title {
-            font-size: 2.8rem;
+        .ocean-feature-title {
+            font-size: 1.6rem;
             font-weight: 800;
-            color: #2d3436;
+            color: var(--bright-yellow);
             margin-bottom: 20px;
-            position: relative;
-            display: inline-block;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
-        .zone-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(135deg, #fd79a8, #e84393);
-            border-radius: 2px;
+        .ocean-feature-description {
+            color: var(--light-gray);
+            line-height: 1.8;
+            font-size: 1.05rem;
         }
 
-        .zone-subtitle {
-            font-size: 1.2rem;
-            color: #636e72;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* Feature Grid */
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-
-        .feature-item {
-            background: white;
-            padding: 35px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+        /* ベネフィットセクション */
+        .ocean-benefits {
+            background: var(--gradient-ocean);
+            color: var(--pure-white);
+            border-radius: 24px;
+            padding: 60px;
+            margin: 60px 0;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(116, 185, 255, 0.1);
+            box-shadow: 0 20px 40px var(--shadow-blue);
         }
 
-        .feature-item::before {
+        .ocean-benefits::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><circle cx="30" cy="30" r="2" fill="rgba(255,204,0,0.2)"/><circle cx="15" cy="15" r="1" fill="rgba(255,204,0,0.15)"/><circle cx="45" cy="45" r="1.5" fill="rgba(255,204,0,0.18)"/></svg>');
+            opacity: 0.4;
+            animation: float-particles 15s ease-in-out infinite;
         }
 
-        .feature-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-            border-color: rgba(116, 185, 255, 0.3);
+        @keyframes float-particles {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
 
-        .feature-emoji {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            display: block;
+        .ocean-benefits-list {
+            list-style: none;
+            margin-top: 40px;
+            position: relative;
+            z-index: 2;
         }
 
-        .feature-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #2d3436;
-            margin-bottom: 15px;
+        .ocean-benefit-item {
+            background: rgba(255, 204, 0, 0.15);
+            margin: 24px 0;
+            padding: 32px;
+            border-radius: 16px;
+            border-left: 6px solid var(--bright-yellow);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         }
 
-        .feature-description {
-            color: #636e72;
+        .ocean-benefit-item:hover {
+            transform: translateX(16px) scale(1.02);
+            background: rgba(255, 204, 0, 0.25);
+            box-shadow: 0 12px 32px rgba(255, 204, 0, 0.3);
+        }
+
+        .ocean-benefit-title {
+            font-weight: 800;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            color: var(--bright-yellow);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .ocean-benefit-text {
+            color: var(--pure-white);
             line-height: 1.7;
-            font-size: 1.05rem;
         }
 
-        /* Benefits Section */
-        .benefits-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .benefits-content {
-            order: 2;
-        }
-
-        .benefits-visual {
-            order: 1;
-        }
-
-        .benefits-list {
-            margin: 30px 0;
-        }
-
-        .benefit-point {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            padding: 15px 20px;
-            background: rgba(116, 185, 255, 0.05);
-            border-radius: 12px;
-            border-left: 4px solid #74b9ff;
-            transition: all 0.3s ease;
-        }
-
-        .benefit-point:hover {
-            background: rgba(116, 185, 255, 0.1);
-            transform: translateX(10px);
-        }
-
-        .benefit-icon {
-            font-size: 1.5rem;
-            margin-right: 15px;
-            color: #74b9ff;
-            flex-shrink: 0;
-        }
-
-        .benefit-text {
-            flex: 1;
-        }
-
-        .benefit-title {
-            font-weight: 700;
-            color: #2d3436;
-            margin-bottom: 5px;
-        }
-
-        .benefit-desc {
-            color: #636e72;
-            font-size: 0.95rem;
-        }
-
-        /* CTA Section */
-        .cta-zone {
-            background: linear-gradient(135deg, #6c5ce7 0%, #5f3dc4 100%);
-            color: white;
-            padding: 80px 0;
-            text-align: center;
+        /* CTAボタン */
+        .ocean-cta-button {
+            display: inline-block;
+            background: var(--gradient-gold);
+            color: var(--pure-black);
+            padding: 20px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 10px 30px var(--shadow-yellow),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
             position: relative;
             overflow: hidden;
+            margin: 32px auto;
+            display: block;
+            text-align: center;
+            max-width: 350px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .cta-zone::before {
+        .ocean-cta-button::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
+            left: -100%;
             width: 100%;
             height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.6;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.6s;
         }
 
-        .cta-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
+        .ocean-cta-button:hover {
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 
+                0 15px 40px var(--shadow-yellow),
+                0 0 20px rgba(255, 204, 0, 0.8);
         }
 
-        .cta-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
+        .ocean-cta-button:hover::before {
+            left: 100%;
         }
 
-        .cta-text {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            opacity: 0.9;
-        }
-
-        .cta-image-container {
-            margin: 40px 0;
-        }
-
-        /* Footer */
-        .footer-zone {
-            background: #2d3436;
-            color: #b2bec3;
-            padding: 50px 0 30px;
-        }
-
-        .footer-content {
-            text-align: center;
-        }
-
-        .footer-links {
-            margin-bottom: 30px;
-        }
-
-        .footer-links a {
-            color: #74b9ff;
-            text-decoration: none;
-            margin: 0 20px;
-            transition: color 0.3s ease;
-            font-weight: 500;
-        }
-
-        .footer-links a:hover {
-            color: #0984e3;
-        }
-
-        .disclosure-section {
-            background: rgba(116, 185, 255, 0.1);
-            border: 1px solid rgba(116, 185, 255, 0.2);
-            border-radius: 15px;
-            padding: 25px;
-            margin: 25px 0;
-            text-align: left;
-        }
-
-        .disclosure-title {
-            font-weight: bold;
-            color: #74b9ff;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        .disclosure-text {
-            color: #b2bec3;
-            font-size: 0.9rem;
-            line-height: 1.7;
-            margin-bottom: 15px;
-        }
-
-        .contact-info {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(116, 185, 255, 0.2);
-        }
-
-        .contact-item {
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
-
-        /* Floating Button */
-        .floating-action {
+        /* フローティングボタン */
+        .ocean-floating-cta {
             position: fixed;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(135deg, #e17055, #d63031);
-            color: white;
-            padding: 18px 50px;
+            z-index: 1000;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .ocean-floating-button {
+            width: 100%;
+            background: var(--gradient-gold);
+            color: var(--pure-black);
+            padding: 24px 40px;
             border: none;
             border-radius: 50px;
             font-size: 1.2rem;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
-            z-index: 999;
-            box-shadow: 0 10px 30px rgba(225, 112, 85, 0.4);
-            animation: breathingEffect 3s infinite;
+            box-shadow: 
+                0 10px 30px var(--shadow-yellow),
+                0 0 20px rgba(255, 204, 0, 0.5);
+            animation: ocean-breathe 3s ease-in-out infinite;
+            text-align: center;
             white-space: nowrap;
-            text-transform: none;
-            letter-spacing: 0.5px;
-            min-width: 350px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--bright-yellow);
         }
 
-        @keyframes breathingEffect {
-            0% {
-                transform: translateX(-50%) scale(1);
-                box-shadow: 0 10px 30px rgba(225, 112, 85, 0.4);
+        @keyframes ocean-breathe {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 
+                    0 10px 30px var(--shadow-yellow),
+                    0 0 20px rgba(255, 204, 0, 0.5);
             }
             50% {
-                transform: translateX(-50%) scale(1.05);
-                box-shadow: 0 15px 40px rgba(225, 112, 85, 0.6);
-            }
-            100% {
-                transform: translateX(-50%) scale(1);
-                box-shadow: 0 10px 30px rgba(225, 112, 85, 0.4);
+                transform: scale(1.08);
+                box-shadow: 
+                    0 15px 40px var(--shadow-yellow),
+                    0 0 30px rgba(255, 204, 0, 0.8);
             }
         }
 
-        /* Responsive Design */
+        /* WhatsAppボタン */
+        .ocean-whatsapp {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 8px 24px var(--shadow-yellow),
+                0 0 20px rgba(255, 204, 0, 0.4);
+            z-index: 999;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            border: 3px solid var(--bright-yellow);
+        }
+
+        .ocean-whatsapp:hover {
+            transform: translateY(-50%) scale(1.15);
+            box-shadow: 
+                0 12px 32px var(--shadow-yellow),
+                0 0 30px rgba(255, 204, 0, 0.7);
+        }
+
+        .ocean-whatsapp-icon {
+            width: 36px;
+            height: 36px;
+            fill: var(--pure-black);
+        }
+
+        .ocean-notification {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 28px;
+            height: 28px;
+            background: var(--gradient-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bright-yellow);
+            font-size: 14px;
+            font-weight: bold;
+            animation: ocean-pulse 2.5s infinite;
+            border: 2px solid var(--golden-yellow);
+        }
+
+        @keyframes ocean-pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 204, 0, 0.7);
+            }
+            70% {
+                transform: scale(1.2);
+                box-shadow: 0 0 0 12px rgba(255, 204, 0, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 204, 0, 0);
+            }
+        }
+
+        /* フッター */
+        .ocean-footer {
+            background: var(--gradient-dark);
+            color: var(--light-gray);
+            padding: 60px 0;
+            margin-top: 80px;
+            border-top: 4px solid var(--golden-yellow);
+            box-shadow: 0 -10px 30px rgba(0, 51, 102, 0.3);
+        }
+
+        .ocean-disclaimer-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            color: var(--bright-yellow);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .ocean-disclaimer-text {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-size: 1rem;
+            color: var(--light-gray);
+        }
+
+        .ocean-contact-info {
+            margin: 40px 0;
+            padding-top: 30px;
+            border-top: 2px solid var(--deep-ocean);
+        }
+
+        .ocean-footer-links {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .ocean-footer-link {
+            color: var(--golden-yellow);
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid transparent;
+        }
+
+        .ocean-footer-link:hover {
+            color: var(--pure-black);
+            background: var(--golden-yellow);
+            border-color: var(--bright-yellow);
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+        .ocean-copyright {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--deep-ocean);
+            font-size: 0.95rem;
+        }
+
+        /* レスポンシブデザイン */
         @media (max-width: 768px) {
-            .main-headline {
-                font-size: 2.5rem;
+            .ocean-hero-title {
+                font-size: 2.8rem;
             }
             
-            .zone-title {
+            .ocean-hero-subtitle {
+                font-size: 1.6rem;
+            }
+            
+            .ocean-section-title {
                 font-size: 2.2rem;
             }
             
-            .primary-layout,
-            .benefits-layout {
+            .ocean-section {
+                padding: 40px 30px;
+                margin: 40px 0;
+            }
+            
+            .ocean-features-grid {
                 grid-template-columns: 1fr;
-                gap: 40px;
-                text-align: center;
+                gap: 30px;
             }
             
-            .text-section {
-                padding-right: 0;
-            }
-            
-            .benefits-content {
-                order: 1;
-            }
-            
-            .benefits-visual {
-                order: 2;
-            }
-            
-            .feature-zone {
-                padding: 50px 0;
-            }
-            
-            .floating-action {
-                min-width: 90%;
-                padding: 15px 30px;
-                font-size: 1.1rem;
-            }
-            
-            .zone-header {
-                margin-bottom: 40px;
-            }
-            
-            .feature-grid {
-                gap: 25px;
-            }
-            
-            .benefit-point {
-                margin-bottom: 15px;
-                padding: 12px 15px;
+            .ocean-floating-button {
+                padding: 18px 30px;
+                font-size: 1rem;
             }
         }
 
         @media (max-width: 480px) {
-            .content-container {
-                padding: 0 15px;
+            .ocean-container {
+                padding: 0 16px;
             }
             
-            .main-headline {
-                font-size: 2rem;
+            .ocean-hero {
+                padding: 60px 0;
             }
             
-            .primary-zone,
-            .feature-zone,
-            .cta-zone {
-                padding: 40px 0;
+            .ocean-hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .ocean-quote-container {
+                padding: 20px;
+            }
+            
+            .ocean-section {
+                padding: 30px 20px;
             }
         }
